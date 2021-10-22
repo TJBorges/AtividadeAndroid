@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+apply from: '../coverage.gradle'
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.1"
@@ -10,7 +11,7 @@ android {
         applicationId "com.example.listaestados"
         minSdkVersion 27
         targetSdkVersion 30
-        versionCode 1
+        versionCode
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
