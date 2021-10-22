@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Display
 import android.view.View
 import android.widget.Toast
 import com.example.listaestados.adapter.EstadoAdapter
@@ -16,13 +15,15 @@ class MainActivity : AppCompatActivity() {
 
     private val CADASTRO_ACTIVITY_REQUEST_CODE = 0
 
-    private val listEstados = mutableListOf(
+    public val listEstados = mutableListOf(
         Estado("Paraíba", 0),
         Estado("Pernambuco", 1),
         Estado("Rio Grande do Norte", 2)
     )
 
-    private val mEstadoAdapter by lazy { EstadoAdapter(this, listEstados) }
+    val mEstadoAdapter by lazy { EstadoAdapter(this, listEstados) }
+
+    var resultCadastro = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +31,13 @@ class MainActivity : AppCompatActivity() {
         setupListview()
 
         findViewById<FloatingActionButton>(R.id.fab).setOnClickListener{ view ->
-            Cadastrar(view)
+            Cadastrar()
         }
     }
 
-    private fun Cadastrar(view: View) {
+    fun Cadastrar() {
         val intent = Intent(this, Cadastro::class.java)
+        resultCadastro = true
         startActivityForResult(intent, CADASTRO_ACTIVITY_REQUEST_CODE)
     }
 
@@ -56,24 +58,22 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun setupInsertButton(nomeEstado: String) {
+    public fun setupInsertButton(nomeEstado: String) {
             if (isNameValid(nomeEstado)) {
                 listEstados.add(Estado(nomeEstado, (0..2).random()))
-                mEstadoAdapter.notifyDataSetChanged()
+                //mEstadoAdapter.notifyDataSetChanged()
         }
     }
 
-    private fun isNameValid(name: String): Boolean = !name.isNullOrEmpty()
+    public fun isNameValid(name: String): Boolean = !name.isNullOrEmpty()
+
+    fun sizeList(){}
 
     private fun setupListview() {
         listView.setOnItemClickListener { parent, view
                                           , position, id ->
             val (nome, bandeira) = listEstados[position]
             Toast.makeText(this, "click: $nome $position", Toast.LENGTH_LONG).show()
-
-
-
-
         }
         listView.adapter = mEstadoAdapter
     }
