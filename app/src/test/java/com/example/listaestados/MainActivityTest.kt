@@ -10,13 +10,13 @@ class MainActivityTest{
     val mainActivityTest = MainActivity()
 
     @Test
-    public fun validateName(){
-        var result = mainActivityTest.isNameValid("Teste")
+    fun validateName(){
+        val result = mainActivityTest.isNameValid("Teste")
         assert(result)
     }
 
     @Test
-    public fun setupInsertButton(){
+    fun setupInsertButton(){
         val codeSize = mainActivityTest.listEstados.size
         mainActivityTest.setupInsertButton("Paraiba")
         assert(mainActivityTest.listEstados.size == codeSize+1)
@@ -25,6 +25,6 @@ class MainActivityTest{
     @Test
     fun cadastrar(){
         mainActivityTest.setupInsertButton("Paraiba")
-        assert(mainActivityTest.listEstados.contains(Estado("Paraiba",0)))
+        assert(mainActivityTest.listEstados.filter { Estado -> Estado.nome == "Paraiba"}.size == 1)
     }
 }
